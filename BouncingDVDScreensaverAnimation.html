@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Bouncing DVD Screensaver in JS</title>
+</head>
+<body>
+       
+ 
+       <script>
+
+              window.onload = function() 
+              {
+                     var img = document.createElement('img');
+                     img.src = "../Projects/resources/ball.jpg";
+
+                     img.style.width = '80px';
+                     img.style.left = '0';
+                     img.style.top = '0';
+                     img.style.position = 'absolute';
+
+                     document.body.appendChild(img);
+
+                  
+
+                     var speed = 10;
+                     var windWidth = window.innerWidth + 'px';
+                     var windHight = window.innerHeight + 'px';
+
+                     // document.writeln(windWidth);
+                     // document.write(windHight);
+
+                      var xDirection = 1;
+                      var yDirection = 1;
+
+                     function moveBall()
+                     {
+
+                       var imgMovePlacewidth =   img.offsetLeft;
+                       var imgMoverPlaceHeight = img.offsetTop;
+                     //   document.write(imgMovePlacewidth);
+                     //   document.write(imgMoverPlaceHeight);
+
+              if(imgMovePlacewidth + img.clientWidth > windWidth || imgMovePlacewidth < 0)
+                     {
+                       xDirection *= -1;
+                     }
+              if(imgMoverPlaceHeight + img.clientHeight > windHight || imgMoverPlaceHeight < 0)
+                     {
+                        yDirection *= -1;
+                     }
+                     // document.write(imgMovePlacewidth);
+                     img.style.left = img.x + (speed * xDirection) + 'px';
+                     img.style.top = img.y + (speed * yDirection)  + 'px';
+
+                         setTimeout(moveBall,100);
+                     };
+                     moveBall();
+              };
+       </script>
+
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Bouncing DVD</title>
+       <style>
+              * 
+              {
+                     margin: 0;
+                     padding: 0;
+                     box-sizing: border-box;
+              }
+              body 
+              {
+                     overflow: hidden;
+              }
+              section 
+              {
+                     position: relative;
+                     background-color: black;
+              }
+              section .logo 
+              {
+                     width: 80px;
+                     /* height: 80px; */
+                     position: absolute;
+                     border-radius: 100%;
+              }
+       </style>
+</head>
+<body>
+
+       <section>
+              <img class="logo" src="../Projects/resources/ball.jpg">
+       </section>
+
+       <script>
+              var section = document.querySelector('section');
+              var logo = document.querySelector('.logo');
+              var FPS = 60;
+
+              section.style.height = window.innerHeight + 'px';
+              section.style.width = window.innerWidth + 'px';
+
+              // logo moving velocity variables
+
+              var xPosition = 10;
+              var yPosition = 10;
+              var xSpeed = 10;
+              var ySpeed = 10;
+  
+               function update()
+               {
+                      logo.style.left = xPosition + 'px';
+                      logo.style.top  = yPosition + 'px';
+               }
+
+              //  setInterval is like a LOOP inside the code or function it will run repeatly untill the time  expired!.
+               setInterval(()=>{
+
+                     // piece of the code 
+                      if(xPosition + logo.clientWidth >= window.innerWidth || xPosition <= 0)
+                      {
+                             xSpeed = -xSpeed;
+                             section.style.background = randomColor();
+                      }
+                      if(yPosition + logo.clientHeight>= window.innerHeight || yPosition <= 0)
+                      {
+                             ySpeed = -ySpeed;
+                             section.style.background = randomColor();
+                      }
+                   
+
+                     //  WE WILL CHANGE THE xPOSITION VALUE  HOW ? THAT WHEN ADD xSPEED INTO xPOSITION IT WILL CHANGE THE xPOSITION VALUE.
+                      xPosition =  xPosition + xSpeed;
+                      yPosition =  yPosition + ySpeed;
+
+                        //  end the piece of the code.
+                     
+                      update();
+               },1000/FPS)
+
+               function randomColor() 
+               {
+                      var color = '#';
+                      color = color + Math.random().toString(16).slice(2,8).toUpperCase();
+                      console.log(color);
+                      return color;
+               }
+               randomColor();
+            
+               window.addEventListener('resize',()=>
+               {
+                     // var xPosition = 10;
+                     // var yPosition = 10;
+
+                     section.style.height = window.innerHeight + 'px';
+                     section.style.width = window.innerWidth + 'px';
+
+               })
+       </script>
+       
+</body>
+</html>
